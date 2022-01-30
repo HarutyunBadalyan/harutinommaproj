@@ -48,8 +48,10 @@ signUpRoute.post("/register",
             sendEmail(req.body.email, "Authentication message", "", `<a href="${authenticationUrl}"> Click here </a>`);
             res.send({msg:"Go and check Your email"});
         } catch(err) {
-            console.log(err);
-            res.send({err:"this Email already used"});
+           if (err.name == "SequelizeUniqueConstraintError") {
+               return res.send({msg: "this Email already used"})
+           }
+            res.send({msg: err});
         }
   });
 
