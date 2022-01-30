@@ -8,7 +8,7 @@ const cors = require('cors')
 const signUpRoute = require("./routes/signuproute");
 
 const {decodeToken} = require("./helpers/encodedecodetoken")
-
+console.log(process.env.DB_DATABASE)
 const {User} = require("./database/models/index");
 const signinRoute = require("./routes/signinroute");
 const profileRoute = require("./routes/profileroute");
