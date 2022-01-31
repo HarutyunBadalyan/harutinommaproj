@@ -25,7 +25,7 @@ signinRoute.post("/login",
             }
             const result = await compare(req.body.password, user.password);
             if(!result) {
-                throw "Please check your email";
+                throw "Invalid password or email";
             }
             if(!user.authenticated) {
                 throw "Please check your email";
