@@ -28,7 +28,7 @@ signinRoute.post("/login",
                 throw "Invalid password or email";
             }
             if(!user.authenticated) {
-                throw "Please check your email";
+                throw "Authentication required Please check your email for authentication";
             }
             req.session.userId = user.id;
             res.send({msg: "success" });

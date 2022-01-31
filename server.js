@@ -14,7 +14,7 @@ const signinRoute = require("./routes/signinroute");
 const profileRoute = require("./routes/profileroute");
 console.log(process.env.SESSION_SECRET);
 const PORT = process.env.PORT || 5000;
-app.use(cors())
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 const oneDay = 1000 * 60 * 60 * 24;
@@ -25,7 +25,7 @@ app.use(sessions({
     resave: false 
 }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname,"build")))
+app.use(express.static(path.join(__dirname,"build")));
 app.get("/token/:id", async (req, res) => {
  try {
      decodedData = decodeToken(req.params.id);
@@ -40,7 +40,7 @@ app.get("/token/:id", async (req, res) => {
      console.log(err);
      res.send("time expired");
  }
-})
+});
 app.use("/api", signUpRoute);
 app.use("/api", signinRoute);
 app.use("/api", profileRoute);
@@ -48,8 +48,8 @@ app.post("/logout", (req, res) => {
     
     req.session.destroy();
     res.send({msg: "success"});
-})
+});
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname,"build","index.html"));
-})
+});
 app.listen(PORT, () => console.log(`server listen localhost: ${PORT}`));
