@@ -25,7 +25,7 @@ signUpRoute.post("/register",
     body("lastName").not().isEmpty().withMessage("lastname is required"),
     body("confirmPassword").custom((value, { req }) => {
         if (value !== req.body.password) {
-          throw new Error('Password confirmation does not match password');
+          throw new Error("Password confirmation does not match password");
         }
         return true;
       }), 
@@ -49,7 +49,7 @@ signUpRoute.post("/register",
             res.send({msg:"Go and check Your email"});
         } catch(err) {
            if (err.name == "SequelizeUniqueConstraintError") {
-               return res.send({msg: "this Email already used"})
+               return res.send({msg: "this Email already used"});
            }
             res.send({msg: err});
         }

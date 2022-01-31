@@ -1,18 +1,18 @@
-require("dotenv").config();
+//require("dotenv").config();
 const path = require("path");
 const express = require("express");
 const app = express();
 const cookieParser = require("cookie-parser");
 const sessions = require('express-session');
-const cors = require('cors')
+const cors = require('cors');
 const signUpRoute = require("./routes/signuproute");
 
-const {decodeToken} = require("./helpers/encodedecodetoken")
-console.log("server database", process.env.DB_DATABASE)
+const {decodeToken} = require("./helpers/encodedecodetoken");
+console.log("server database", process.env.DB_DATABASE);
 const {User} = require("./database/models/index");
 const signinRoute = require("./routes/signinroute");
 const profileRoute = require("./routes/profileroute");
-console.log(process.env.SESSION_SECRET)
+console.log(process.env.SESSION_SECRET);
 const PORT = process.env.PORT || 5000;
 app.use(cors())
 app.use(express.json());
@@ -50,6 +50,6 @@ app.post("/logout", (req, res) => {
     res.send({msg: "success"});
 })
 app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname,"build","index.html"))
+    res.sendFile(path.join(__dirname,"build","index.html"));
 })
 app.listen(PORT, () => console.log(`server listen localhost: ${PORT}`));

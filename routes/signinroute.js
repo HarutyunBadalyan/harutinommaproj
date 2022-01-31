@@ -16,9 +16,9 @@ signinRoute.post("/login",
     async (req, res) => {
         try {
             const errors = validationResult(req);
-        if(!errors.isEmpty()) {
-          throw "Invalid password or email";
-        }
+            if(!errors.isEmpty()) {
+            throw "Invalid password or email";
+            }
             const user = await User.findOne({raw: true, where:{email: req.body.email}});
             if(!user) {
                 throw "Invalid password or email";
@@ -31,7 +31,7 @@ signinRoute.post("/login",
                 throw "Please check your email";
             }
             req.session.userId = user.id;
-             res.send({msg: "success" })
+            res.send({msg: "success" });
             
 
         } catch(err) {
