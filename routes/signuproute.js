@@ -5,7 +5,7 @@ const signUpRoute = express.Router();
 
 
 const { body, validationResult } = require('express-validator');
-
+const signupBodyValidation = require("../middlewares/signupvalidationmiddleware")
 const {encode} = require("../helpers/passwordencodeandcompare");
 const {encodeToken} = require("../helpers/encodedecodetoken");
 const { User} = require("../database/models/index");
@@ -18,23 +18,13 @@ signUpRoute.get("/register", (req, res, next) => {
     next();
 });
 
-signUpRoute.post("/register",  
-    body('email').isEmail().withMessage("Email is required"),
-    body('password').isLength({ min: 8 }).withMessage("Password must contain 8 character"),
-    body("firstName").not().isEmpty().withMessage("firstname is required"),
-    body("lastName").not().isEmpty().withMessage("lastname is required"),
-    body("confirmPassword").custom((value, { req }) => {
-        if (value !== req.body.password) {
-          throw new Error("Password confirmation does not match password");
-        }
-        return true;
-      }), 
-  
+signUpRoute.post("/register",   
+    signupBodyValidation,
    async (req, res) => {
-        const errors = validationResult(req);
-        if(!errors.isEmpty()) {
-            return res.send(errors.array())
-        }
+    const errors = validationResult(req);
+    if(!errors.isEmpty()) {
+        return res.send(errors.array())
+    }
         const hashPassword = await encode(req.body.password);
         try {
             const user = await User.create({

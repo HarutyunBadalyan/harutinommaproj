@@ -2,7 +2,7 @@ const express = require("express");
 const signinRoute = express.Router();
 const {compare} = require("../helpers/passwordencodeandcompare")
 const { body, validationResult } = require('express-validator');
-
+const siginBodyValidation = require("../middlewares/siginbodyvalidationmiddleware");
 const {User} = require("../database/models/index");
 
 signinRoute.get("/", (req, res) => {
@@ -11,8 +11,7 @@ signinRoute.get("/", (req, res) => {
     }
 });
 signinRoute.post("/login", 
-    body("email").isEmail(),
-    body("password").isLength({ min: 8 }),
+    siginBodyValidation,
     async (req, res) => {
         try {
             const errors = validationResult(req);
