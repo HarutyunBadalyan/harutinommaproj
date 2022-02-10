@@ -1,6 +1,6 @@
 const express = require("express");
 const signinRoute = express.Router();
-const {compare} = require("../helpers/passwordencodeandcompare")
+const {PasswordEncodeDecode} = require("../helpers/passwordencodeandcompare")
 const { body, validationResult } = require('express-validator');
 const siginBodyValidation = require("../middlewares/siginbodyvalidationmiddleware");
 const {User} = require("../database/models/index");
@@ -22,7 +22,8 @@ signinRoute.post("/login",
             if(!user) {
                 throw "Invalid password or email";
             }
-            const result = await compare(req.body.password, user.password);
+            const result = await PasswordEncodeDecode.compare(req.body.password, user.password);
+            console.log(result)
             if(!result) {
                 throw "Invalid password or email";
             }

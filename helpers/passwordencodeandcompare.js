@@ -1,14 +1,15 @@
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
+class PasswordEncodeDecode {
+    static async encode   (password)  {
+        const encryptedPassword = await bcrypt.hash(password, saltRounds);
+        return encryptedPassword;
+    } 
 
-const encode = async (password) => {
-    const encryptedPassword = await bcrypt.hash(password, saltRounds);
-    return encryptedPassword;
-} 
-
-const compare = async (password, encryptedPassword) => {
-   const result = bcrypt.compare(password, encryptedPassword);
-   return result;
+    static async compare  (password, encryptedPassword)  {
+    const result = bcrypt.compare(password, encryptedPassword);
+    return result;
+    }
 }
-module.exports = {encode, compare};
+module.exports = {PasswordEncodeDecode};

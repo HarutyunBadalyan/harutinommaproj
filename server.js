@@ -7,7 +7,7 @@ const sessions = require('express-session');
 const cors = require('cors');
 const signUpRoute = require("./routes/signuproute");
 
-const {decodeToken} = require("./helpers/encodedecodetoken");
+const {TokenEncodeDecode} = require("./helpers/encodedecodetoken");
 console.log("server database", process.env.DB_DATABASE);
 const {User} = require("./database/models/index");
 const signinRoute = require("./routes/signinroute");
@@ -28,7 +28,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname,"build")));
 app.get("/token/:id", async (req, res) => {
  try {
-     decodedData = decodeToken(req.params.id);
+     const decodedData = TokenEncodeDecode.decodeToken(req.params.id);
      console.log(decodedData);
      const user = await User.update({ authenticated: true }, {
         where: {
