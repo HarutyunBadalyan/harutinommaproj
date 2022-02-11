@@ -23,7 +23,6 @@ signinRoute.post("/login",
                 throw "Invalid password or email";
             }
             const result = await PasswordEncodeDecode.compare(req.body.password, user.password);
-            console.log(result)
             if(!result) {
                 throw "Invalid password or email";
             }
