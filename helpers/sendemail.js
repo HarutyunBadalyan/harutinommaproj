@@ -10,21 +10,23 @@ const gmailTransporter = nodemailer.createTransport({
         pass: Config.PASSWORD,
     }
 });
-const sendEmail = async (toWhomSend, messageSubject, messageText, messageHtml) => {
-    try {
-        const info = await gmailTransporter.sendMail({
-            from: 'Admin', 
-            to: toWhomSend,
-            subject: messageSubject,
-            text: messageText, 
-            html: messageHtml,
-          });
-          console.log(info)
+class SendMail {
+    static async sendEmail(toWhomSend, messageSubject, messageText, messageHtml)  {
+        try {
+            const info = await gmailTransporter.sendMail({
+                from: 'Admin', 
+                to: toWhomSend,
+                subject: messageSubject,
+                text: messageText, 
+                html: messageHtml,
+            });
+            console.log(info)
 
-    } catch(err) {
-        console.log(err);
-        return err;
+        } catch(err) {
+            console.log(err);
+            return err;
+        }
     }
 }
 
-module.exports = sendEmail;
+module.exports = SendMail;
