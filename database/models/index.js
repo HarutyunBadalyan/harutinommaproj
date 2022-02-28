@@ -36,4 +36,5 @@ db.Sequelize = Sequelize;
 const User = require("./user")(sequelize, Sequelize);
 const Friends = require("./friends")(sequelize, Sequelize);
 const Post = require("./post")(sequelize, Sequelize);
-module.exports = {User, Friends, Post};
+const UserBalance = require("./userbalance")(sequelize, Sequelize)
+module.exports = {User, Friends, Post, UserBalance, sequelize};
